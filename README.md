@@ -1,2 +1,2 @@
 # Tree of Knowledge
-A web app for creating and sharing dependency trees. Intended for teaching and tracking learning of topics in math and science.
+Backend for Tree of Learning. A web app for creating and sharing dependency trees, intended for teaching and tracking learning of topics in math and science.
