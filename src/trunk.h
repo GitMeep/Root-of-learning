@@ -6,6 +6,8 @@
 
 #include <api/server.h>
 
+namespace ROK {
+
 class Trunk {
 public:
     Trunk();
@@ -16,7 +18,9 @@ public:
     asio::io_context& getContext();
 
 private:
-    std::shared_ptr<ApiServer> mApiServer;
+    std::shared_ptr<API::Server> _apiServer;
     asio::io_context _ioContext;
     std::shared_ptr<spdlog::logger> _log;
+};
+
 };

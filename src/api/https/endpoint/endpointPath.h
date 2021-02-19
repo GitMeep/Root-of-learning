@@ -10,7 +10,7 @@ public:
 
     bool operator==(const EndpointPath& other);
 
-    EndpointPath& addPart(const std::string& name, bool isVar);
+    EndpointPath& addPart(const std::string& name, bool isVar = false);
 
     PathVariables matchAndGetVars(std::string& path);
 

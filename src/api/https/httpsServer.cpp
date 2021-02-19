@@ -19,8 +19,6 @@ HTTPSServer::HTTPSServer(asio::io_context& io_context, unsigned short port)
     _sslContext.set_password_callback(std::bind(&HTTPSServer::getSSLPassword, this));
     _sslContext.use_certificate_file("cert.pem", asio::ssl::context::pem);
     _sslContext.use_private_key_file("key.pem", asio::ssl::context::pem);
-
-    // http handler setup
 }
 
 void HTTPSServer::start() {

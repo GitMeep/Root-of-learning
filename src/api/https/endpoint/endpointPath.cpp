@@ -17,15 +17,23 @@ EndpointPath::PathVariables EndpointPath::matchAndGetVars(std::string& path) {
     EndpointPath::PathVariables vars;
 
     int it = 0;
+    bool match = false;
     std::string part;
     while(std::getline(ss, part, '/')) {
         if(_path[it].isVar) {
             vars[_path[it].name] = part;
+            match = true;
         } else {
             if(_path[it].name != part) {
-                return {{"no match", ""}};
+                match = false;
+                break;
             }
         }
+        it++;
+    }
+
+    if(!match) {
+        return {{"no match", ""}};
     }
 
     return vars;

@@ -1,10 +1,10 @@
 #pragma once
 
 #include <asio.hpp>
-#include <api/http/message.h>
 #include <vector>
 
 #include "../endpoint/endpoint.h"
+#include "../request.h"
 
 class HTTPRequestHandler {
 public:

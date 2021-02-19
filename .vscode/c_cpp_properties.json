@@ -11,7 +11,7 @@
                 "/usr/include/",
                 "./src/"
             ],
-            "defines": ["BOT_VERSION=\"debug\"", "DEBUG"],
+            "defines": ["ROK_VERSION=\"debug\"", "DEBUG"],
             "compilerPath": "/usr/bin/g++",
             "cStandard": "c11",
             "cppStandard": "c++17",
