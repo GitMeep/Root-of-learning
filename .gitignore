@@ -1,0 +1,8 @@
+bin/
+obj/
+CMakeFiles/
+vendor/
+
+CMakeCache.txt
+Makefile
+roots-of-knowledge.make
