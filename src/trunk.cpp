@@ -19,7 +19,7 @@ asio::io_context& Trunk::getContext() {
 }
 
 void Trunk::run() {
-    _log->info("Starting Roots of Knowledge V" + std::string(RON_VERSION));
+    _log->info("Starting Roots of Knowledge V" + std::string(ROK_VERSION));
 
     mApiServer->start();
     _ioContext.run();

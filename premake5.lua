@@ -10,7 +10,7 @@ project "roots-of-knowledge"
     toolset "gcc"
 
     files { "./src/**.h", "./src/**.cpp" }
-    defines { "RON_VERSION=\"1.0\"", "ASIO_SEPARATE_COMPILATION" }
+    defines { "ROK_VERSION=\"1.0\"", "ASIO_SEPARATE_COMPILATION" }
     includedirs { 
         "/usr/local/include/",
         "/usr/include/",

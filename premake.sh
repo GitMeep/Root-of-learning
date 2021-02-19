@@ -1,2 +1,2 @@
 #!/bin/sh
-./premake/premake5 ninja
+./premake/premake5 gmake
