@@ -5,7 +5,7 @@
 #include <memory>
 
 #include "streamParser.h"
-#include "../handler/requestHandler.h"
+#include "../httpsServer.h"
 
 class HTTPSConnectionManager;
 
@@ -13,7 +13,7 @@ using namespace asio::ip;
 
 class HTTPSConnection {
 public:
-    HTTPSConnection(asio::io_context& io_context, asio::ssl::context& sslContext, HTTPSConnectionManager& connManager, HTTPRequestHandler& requestHandler);
+    HTTPSConnection(asio::io_context& io_context, asio::ssl::context& sslContext, HTTPSConnectionManager& connManager, HTTPSServer::RequestHandlerFn& requestHandler);
 
     asio::ssl::stream<tcp::socket>::lowest_layer_type& socket();
 
@@ -25,7 +25,7 @@ private:
     asio::io_context& _ioContext;
     HTTPSConnectionManager& _connManager;
 
-    HTTPRequestHandler& _requestHandler;
+    HTTPSServer::RequestHandlerFn& _requestHandler;
 
     HTTPStreamParser _reader;
     char _data[1024];

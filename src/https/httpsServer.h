@@ -5,17 +5,19 @@
 #include <set>
 
 #include "connection/httpsConnectionManager.h"
-#include "handler/requestHandler.h"
-#include "endpoint/endpoint.h"
+#include "response.h"
+#include "request.h"
 
 class HTTPSServer {
 public:
+    typedef std::function<HTTPResponse(HTTPRequest)> RequestHandlerFn;
+
     HTTPSServer(asio::io_context& io_context, unsigned short port);
 
     void start();
     void stop();
 
-    void registerEndpoint(HTTPEndpoint& endpoint);
+    void setHandler(RequestHandlerFn fn);
 
 private:
     asio::io_context& _ioContext;
@@ -24,7 +26,7 @@ private:
 
     HTTPSConnectionManager _connManager;
 
-    HTTPRequestHandler _requestHandler;
+    RequestHandlerFn _requestHandler;
 
     std::string getSSLPassword() const;
 

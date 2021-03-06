@@ -1,8 +1,10 @@
-#include "endpointPath.h"
+#include "resourcePath.h"
 
 #include <sstream>
 
-EndpointPath& EndpointPath::addPart(const std::string& name, bool isVar) {
+namespace ROK::API {
+
+ResourcePath& ResourcePath::addPart(const std::string& name, bool isVar) {
     PathPoint pp;
     pp.isVar = isVar;
     pp.name = name;
@@ -10,11 +12,11 @@ EndpointPath& EndpointPath::addPart(const std::string& name, bool isVar) {
     return *this;
 }
 
-EndpointPath::PathVariables EndpointPath::matchAndGetVars(std::string& path) {
+PathVariables ResourcePath::matchAndGetVars(std::string& path) {
     std::stringstream ss;
     ss << path.substr(1); // remove leading /
 
-    EndpointPath::PathVariables vars;
+    PathVariables vars;
 
     int it = 0;
     bool match = false;
@@ -39,7 +41,7 @@ EndpointPath::PathVariables EndpointPath::matchAndGetVars(std::string& path) {
     return vars;
 }
 
-bool EndpointPath::operator==(const EndpointPath& other) {
+bool ResourcePath::operator==(const ResourcePath& other) {
     if(_path.size() != other._path.size()) return false;
 
     for(int i = 0; i < _path.size(); i++) {
@@ -48,3 +50,5 @@ bool EndpointPath::operator==(const EndpointPath& other) {
 
     return true;
 }
+
+};

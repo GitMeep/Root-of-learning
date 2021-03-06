@@ -4,13 +4,16 @@
 #include <vector>
 #include <unordered_map>
 
-class EndpointPath {
+namespace ROK::API {
+
+typedef std::unordered_map<std::string, std::string> PathVariables;
+
+class ResourcePath {
 public:
-    typedef std::unordered_map<std::string, std::string> PathVariables;
 
-    bool operator==(const EndpointPath& other);
+    bool operator==(const ResourcePath& other);
 
-    EndpointPath& addPart(const std::string& name, bool isVar = false);
+    ResourcePath& addPart(const std::string& name, bool isVar = false);
 
     PathVariables matchAndGetVars(std::string& path);
 
@@ -21,5 +24,7 @@ private:
     };
 
     std::vector<PathPoint> _path;
+
+};
 
 };

@@ -8,7 +8,7 @@ HTTPSServer::HTTPSServer(asio::io_context& io_context, unsigned short port)
 : _ioContext(io_context)
 , _acceptor(io_context, tcp::endpoint(tcp::v4(), port))
 , _sslContext(asio::ssl::context::tlsv12)
-, _requestHandler(io_context) {
+{
     ///////////////////////////////////////////
     _sslContext.set_options(
         asio::ssl::context::default_workarounds
@@ -29,8 +29,8 @@ void HTTPSServer::stop() {
     _acceptor.cancel();
 }
 
-void HTTPSServer::registerEndpoint(HTTPEndpoint& endpoint) {
-    _requestHandler.registerEndpoint(endpoint);
+void HTTPSServer::setHandler(RequestHandlerFn fn) {
+    _requestHandler = fn;
 }
 
 std::string HTTPSServer::getSSLPassword() const {

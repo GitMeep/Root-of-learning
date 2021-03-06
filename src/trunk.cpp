@@ -2,7 +2,8 @@
 
 #include <spdlog/sinks/stdout_color_sinks.h>
 
-#include <api/endpoint/endpoints.h>
+#include <api/resource/resources.h>
+#include <api/resource/resourcePath.h>
 namespace ROK {
 
 Trunk::Trunk() {
@@ -10,7 +11,10 @@ Trunk::Trunk() {
     _log->set_pattern("%^[%D] [%H:%M:%S] [th#%t] [%L]%$: %v");
 
     _apiServer = std::make_shared<API::Server>(_ioContext, 1337);
-    _apiServer->registerEndpoint(new ROK::API::Endpoint::Category);
+
+    API::ResourcePath categoryPath;
+    categoryPath.addPart("category", false).addPart("id", true);
+    _apiServer->registerResource(new ROK::API::Resources::Category, categoryPath);
 
 }
 

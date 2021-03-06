@@ -1,29 +1,24 @@
 #include "server.h"
 
-#include "https/endpoint/endpoint.h"
-
 namespace ROK::API {
 
 Server::Server(asio::io_context& io_context, unsigned short port) 
 : _httpsServer(io_context, port)
 , _port(port) {
     _log = spdlog::get("console");
+
+    _httpsServer.setHandler(std::bind(&RequestHandler::handleRequest, &_requestHandler, std::placeholders::_1));
 }
 
 Server::~Server() {
-    for(auto e : _endpoints)
+    for(auto e : _resources)
         delete e;
 }
 
-void Server::registerEndpoint(Endpoint::Endpoint* endpoint) {
-    _endpoints.emplace_back(endpoint);
+void Server::registerResource(Resource* resource, ROK::API::ResourcePath &path) {
+    _resources.emplace_back(resource);
 
-    auto info = endpoint->getInfo();
-    HTTPEndpoint ep(info.name, info.path);
-    for(auto handler : info.handlers) {
-        ep.addMethodHandler(handler.first, handler.second);
-    }
-    _httpsServer.registerEndpoint(ep);
+    _requestHandler.registerResource(resource, path);
 }
 
 void Server::start() {

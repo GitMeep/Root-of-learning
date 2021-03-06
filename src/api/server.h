@@ -6,8 +6,9 @@
 #include <memory>
 #include <vector>
 
-#include "https/httpsServer.h"
-#include "endpoint/endpoint.h"
+#include <https/httpsServer.h>
+#include <api/handler/requestHandler.h>
+#include "resource/resource.h"
 
 namespace ROK::API {
 
@@ -16,7 +17,7 @@ public:
     Server(asio::io_context& io_context, unsigned short port);
     ~Server();
 
-    void registerEndpoint(Endpoint::Endpoint* endpoint);
+    void registerResource(Resource* resource, ROK::API::ResourcePath &path);
 
     void start();
     void stop();
@@ -26,7 +27,8 @@ private:
     std::shared_ptr<spdlog::logger> _log;
     unsigned short _port;
 
-    std::vector<Endpoint::Endpoint*> _endpoints;
+    std::vector<Resource*> _resources;
+    RequestHandler _requestHandler;
 };
 
 };

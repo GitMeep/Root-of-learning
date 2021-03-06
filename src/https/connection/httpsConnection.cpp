@@ -1,10 +1,10 @@
-#include "httpsConnection.h"
+#include "./httpsConnection.h"
 
 #include <iostream>
 
 #include "httpsConnectionManager.h"
 
-HTTPSConnection::HTTPSConnection(asio::io_context& io_context, asio::ssl::context& sslContext, HTTPSConnectionManager& connManager, HTTPRequestHandler& requestHandler)
+HTTPSConnection::HTTPSConnection(asio::io_context& io_context, asio::ssl::context& sslContext, HTTPSConnectionManager& connManager, HTTPSServer::RequestHandlerFn& requestHandler)
  : _sslSocket(io_context, sslContext)
  , _connManager(connManager)
  , _ioContext(io_context)
@@ -59,7 +59,7 @@ void HTTPSConnection::onCompleteMessage(HTTPRequest& request) {
         _keepAlive = true;
     }
 
-    std::string replyData = _requestHandler.handleRequest(request);
+    std::string replyData = _requestHandler(request).toRawMessage();
 
     _sslSocket.async_write_some(asio::buffer(replyData), std::bind(&HTTPSConnection::handleWrite, this, std::placeholders::_1, std::placeholders::_2));
 }
