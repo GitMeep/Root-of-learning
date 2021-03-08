@@ -37,9 +37,10 @@ void HTTPStreamParser::readNext(const std::string& data) {
                 if(_currentLine == "") { // empty line, means body should be read now
                     if(_contentLength == -1) { // no content length, but body was started, this is the end of the request
                         onRequestEnd();
+                    } else {
+                        _readingBody = true;
+                        linesLeft = false;
                     }
-                    _readingBody = true;
-                    linesLeft = false;
                 } else { // just the end of a normal header line
                     processHeaderLine();
                 }

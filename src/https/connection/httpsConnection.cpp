@@ -45,7 +45,7 @@ void HTTPSConnection::handleRead(const asio::error_code& error, size_t bytes) {
         memcpy((void*)buf.c_str(), _data, bytes);
 
         _reader.readNext(buf);
-
+        readSome();
     } else {
         _connManager.stop(this);
     }
@@ -60,7 +60,6 @@ void HTTPSConnection::onCompleteMessage(HTTPRequest& request) {
     }
 
     std::string replyData = _requestHandler(request).toRawMessage();
-
     _sslSocket.async_write_some(asio::buffer(replyData), std::bind(&HTTPSConnection::handleWrite, this, std::placeholders::_1, std::placeholders::_2));
 }
 
